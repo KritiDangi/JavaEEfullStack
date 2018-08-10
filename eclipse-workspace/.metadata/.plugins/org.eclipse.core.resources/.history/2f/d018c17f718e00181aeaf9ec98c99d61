@@ -1,0 +1,25 @@
+package com.visa.prj.Client;
+
+import javax.persistence.EntityManager;
+
+import com.visa.prj.Dao.IssueDao;
+import com.visa.prj.Dao.IssueDaoJpa;
+import com.visa.prj.Entity.Employee;
+import com.visa.prj.Entity.Issue;
+import com.visa.prj.Util.JpaUtil;
+
+public class IssueClient {
+
+	public static void main(String[] args) {
+		EntityManager em=JpaUtil.getEntityManager();
+		IssueDao issueDao=new IssueDaoJpa();
+		
+		Issue iss=new Issue();
+		iss.setDescription("not able to login");
+		Employee e=em.find(Employee.class, 1);
+		iss.setRaisedBy(e);
+		
+		em.persist(iss);
+	}
+
+}

@@ -1,0 +1,26 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Chat</title>
+</head>
+<body>
+Welcome <%= session.getAttribute("user") %><br>
+same as <br>
+Welcome ${sessionScope.user} <br>
+<a href="loginServlet">Logout</a>
+<form method="post" action="chatServlet">
+<input type="text" name="msg">
+<button type="submit">Post msg</button>
+<br>
+
+<!-- get messages from servlet and print them -->
+<c:forEach items="${messages}" var="m">
+${m} <br>
+</c:forEach>
+</form>
+</body>
+</html>

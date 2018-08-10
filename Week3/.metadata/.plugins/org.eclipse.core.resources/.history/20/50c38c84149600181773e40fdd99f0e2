@@ -1,0 +1,76 @@
+package com.visa.service;
+
+import java.util.List;
+
+import javax.transaction.Transactional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.visa.dao.CustomerDao;
+import com.visa.dao.ProductDao;
+import com.visa.entity.Customer;
+import com.visa.entity.Product;
+
+@Service
+public class ShopService {
+	
+	@Autowired
+	private ProductDao productDao;
+	
+	@Autowired
+	private CustomerDao custDao;
+	
+	public Customer getCustomerById(int id) {
+		return custDao.findById(id).get();
+	}
+	
+	public List<Customer> getCustomers() {
+		return custDao.findAll();
+	}
+	
+	@Transactional
+	public void addCustomer(Customer c) {
+		custDao.save(c);
+	}
+	
+	@Transactional
+	public void deleteProduct(int id) {
+		Product p = productDao.findById(id).get();
+		productDao.delete(p);
+	}
+	
+	public Product getProductById(int id) {
+		return productDao.findById(id).get();
+	}
+	
+	public List<Product> getProducts() {
+		return productDao.findAll();
+	}
+	
+	public List<Product> getAvailableProducts() {
+		return productDao.getAvailableProducts();
+	}
+	
+	@Transactional
+	public void addProduct(Product p ) {
+		productDao.save(p);
+	}
+	
+	@Transactional
+	public void deleteProduct(int id) {
+		Product p = productDao.findById(id).get();
+		productDao.delete(p);
+	}
+	
+	@Transactional
+	public void updateProduct(int id, Product prd) {
+		
+		//DIRTY CHECKING
+		Product p = productDao.getOne(id);
+		p.setName(prd.getName());
+		p.setPrice(prd.getPrice());
+		p.setQuantity(prd.getQuantity());
+	}
+	
+}

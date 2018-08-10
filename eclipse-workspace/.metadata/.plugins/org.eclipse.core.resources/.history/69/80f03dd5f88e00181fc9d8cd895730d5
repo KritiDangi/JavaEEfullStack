@@ -1,0 +1,27 @@
+package com.visa.prj.Client;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+
+public class Actor2 {
+
+	@Id  //denotes primary key   - composite primary key -> @CompositeId
+	@GeneratedValue(strategy=GenerationType.IDENTITY)  //auto generated, auto increment, only for int or long 
+	private int aId;
+	
+	@Column(name="name",length=100,nullable=false)
+	private String name;
+	
+	@ManyToMany
+	private List<Movie2> movies=new ArrayList<>();
+	
+	public Actor2() {
+	}
+
+}

@@ -1,0 +1,26 @@
+package com.visa.prj.Client;
+
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
+
+import com.visa.prj.Entity.Product;
+import com.visa.prj.Util.JPAUtil;
+
+public class ProductClient {
+
+	public static void main(String[] args) {
+		EntityManager em=JPAUtil.getEntityManager();
+		String q="select p from Product p where p.category =: cat and p.price >: amt";
+		TypedQuery<Product> query=em.createQuery(q,Product.class);
+		query.setParameter("cat", "Beverages");
+		query.setParameter("amt", 10.00);
+		List<Product> products=query.getResultList();
+		
+		for (Product product : products) {
+			System.out.println(product.getName()+" , "+product.getPrice()+" , "+product.getCategory());
+		}
+	}
+
+}

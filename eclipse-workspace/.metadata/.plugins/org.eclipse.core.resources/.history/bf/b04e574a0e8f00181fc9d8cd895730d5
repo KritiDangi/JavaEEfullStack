@@ -1,0 +1,9 @@
+package com.visa.prj.Entity;
+
+public class Mobile extends Item {
+
+	public Mobile() {
+		// TODO Auto-generated constructor stub
+	}
+
+}

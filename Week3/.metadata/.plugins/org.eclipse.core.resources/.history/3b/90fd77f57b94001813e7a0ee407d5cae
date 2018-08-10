@@ -1,0 +1,25 @@
+package com.visa.prj.web;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.visa.prj.entity.Book;
+
+@Controller
+public class BookController {
+	@RequestMapping("bookForm.do")
+	public String getBookForm(Model model) {
+		model.addAttribute("book",new Book());  //create a model, empty book
+		return "bookForm.jsp";   //return the view..server side redirection
+	}
+	
+	@RequestMapping("addBook.do")
+	public String addBook(@ModelAttribute("book") Book b) {
+		System.out.println(b);
+		return "index.jsp";   //return the view..server side redirection
+		//return "redirect:index.jsp";   //return the view..client side redirection
+		//But the data inside the response(form data) will be gone.
+	}
+}

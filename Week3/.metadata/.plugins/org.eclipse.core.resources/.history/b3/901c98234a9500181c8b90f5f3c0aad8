@@ -1,0 +1,74 @@
+package com.visa.prj.web;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.http.HttpRequest;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.visa.prj.Entity.Event;
+import com.visa.prj.Entity.User;
+import com.visa.prj.service.EventService;
+
+@Controller
+public class EventController {
+
+	@Autowired
+	private EventService eventservice;
+	
+	@RequestMapping("eventForm.do")
+	public String getEventForm(Model model) {
+		model.addAttribute("event",new Event(0,"EVENT NAME",new Date(),"Bangalore"));
+		return "eventForm.jsp";
+	}
+	
+	@RequestMapping("addEvent.do")
+	public String addEvent(@ModelAttribute("event") Event e, BindingResult errors, Model model) {
+		
+		//validator.validate(u, errors);
+		if(errors.hasErrors()) {
+			return "eventForm.jsp";   //server side redirection
+			//dont use client side redirection, error messages will be lost
+		}else {
+			eventservice.insertEvent(e);
+			/*
+			 * model.addAttribute() is used for server side redirection.
+			 */
+			//model.addAttribute("msg", "Event added successfully!")
+			return "redirect:index.jsp?msg=event added successfully! ";   //return the view..client side redirection
+			//return "redirect:index.jsp";   //return the view..client side redirection
+			//But the data inside the response(form data) will be gone.
+		}
+		
+	}
+	
+	@RequestMapping("eventRegisterForm.do")
+	public String getRegistrationForm(Model model) {
+		model.addAttribute("events",eventservice.getOpenEvents());
+		return "register.jsp";
+	}
+	
+	@RequestMapping("register.do")
+	public String register(HttpServletRequest req) {
+		String email=req.getParameter("email");
+		String evt=req.getParameter("evt");  //for checkbox, req.getParameterValues();
+		eventservice.register();
+		return "index.jsp?msg=Registration successful";
+		
+	}
+	@InitBinder
+	public void registrationBinder (WebDataBinder binder) {
+		SimpleDateFormat sdf=new SimpleDateFormat("dd-MM-yyyy hh:mm");
+		binder.registerCustomEditor(Date.class, new CustomDateEditor(sdf, false));
+	}
+}

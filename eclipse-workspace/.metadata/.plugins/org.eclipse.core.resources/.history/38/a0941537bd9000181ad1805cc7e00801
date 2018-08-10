@@ -1,0 +1,8 @@
+package com.visa.prj.dao;
+
+import com.visa.prj.Entity.Customer;
+
+public interface CustomerDao {
+
+	void addCustomer(Customer c);
+}

@@ -1,0 +1,35 @@
+package com.visa.prj.dao;
+
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
+
+import com.visa.prj.Entity.User;
+
+public class UserDaoJpa implements UserDao {
+
+	/*
+	 * cant use autowired, since we are getting em from emfactorybean, not a direct em bean
+	 */
+	@PersistenceContext
+	private EntityManager em;
+	
+	@Override
+	public void addUser(User u) {
+		em.persist(u);
+	}
+
+	@Override
+	public List<User> getUsers() {
+		TypedQuery<User> query=em.createQuery("from User",User.class);
+		return query.getResultList();
+	}
+
+	@Override
+	public User getUserById(int id) {
+		return em.find(User.class, id);
+	}
+
+}

@@ -1,0 +1,52 @@
+package com.visa.web;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.visa.entity.Order;
+import com.visa.entity.Product;
+import com.visa.service.ShopService;
+
+@RestController
+public class OrderController {
+
+	@Autowired
+	private ShopService shopService;
+	
+	@RequestMapping(value="api/orders",method=RequestMethod.GET)
+	public @ResponseBody List<Order> getOrders() {
+		return shopService.getOrders();
+	}
+	
+	@RequestMapping(value="api/products/{id}",method=RequestMethod.GET)
+	public @ResponseBody Order getOrder(@PathVariable("id") int id) {
+		return shopService.getOrderById(id);
+	}
+	
+	@RequestMapping(value="api/products",method=RequestMethod.POST)
+	public ResponseEntity<Order> addOrder(@RequestBody Order order) {
+		shopService.addOrder(order);
+		return new ResponseEntity<Order>(order,HttpStatus.CREATED);
+	}
+	
+	@RequestMapping(value="api/products/{id}",method=RequestMethod.DELETE)
+	public ResponseEntity<String> deleteOrder(@PathVariable("id") int id) {
+		shopService.deleteOrder(id);
+		return new ResponseEntity<String>("Order with id " + id + " deleted !!!",HttpStatus.OK);
+	}
+	
+	@RequestMapping(value="api/products/{id}",method=RequestMethod.PUT)
+	public ResponseEntity<Product> updateProduct(@PathVariable("id") int id, @RequestBody Product p) {
+		shopService.updateProduct(id,p);
+		return new ResponseEntity<Product>(p,HttpStatus.OK);
+	}
+}

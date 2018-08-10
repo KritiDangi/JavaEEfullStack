@@ -1,0 +1,4 @@
+book.id.required="please enter book id"
+book.title.required="please enter title"
+book.price.required="Book price is required!"
+invalid.price = "please enter price greater than 0"

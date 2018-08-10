@@ -1,0 +1,14 @@
+package com.visa.prj.service;
+
+import com.visa.prj.dao.ProductDao;
+
+public class SampleService {
+	private ProductDao productdao;
+
+	public void setProductdao(ProductDao productdao) {
+		this.productdao = productdao;
+	}
+	public void insert() {
+		productdao.addProduct();
+	}
+}

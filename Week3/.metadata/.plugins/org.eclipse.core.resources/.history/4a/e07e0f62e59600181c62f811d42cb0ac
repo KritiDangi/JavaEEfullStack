@@ -1,0 +1,4 @@
+Order: 
+
+Customer: {{customer.email}} <br>
+{{customer.firstName}} <br>

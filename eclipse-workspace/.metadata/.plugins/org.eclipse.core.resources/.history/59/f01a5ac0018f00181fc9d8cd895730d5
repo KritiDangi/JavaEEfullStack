@@ -1,0 +1,14 @@
+package com.visa.prj.Entity;
+
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="products")
+public class Product {
+
+	
+	public Product() {
+	}
+
+}

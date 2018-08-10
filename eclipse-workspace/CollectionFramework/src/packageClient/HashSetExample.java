@@ -1,0 +1,70 @@
+package packageClient;
+
+import java.util.HashSet;
+import java.util.Set;
+import java.util.TreeSet;
+
+import packageEntity.Book;
+
+public class HashSetExample {
+	
+	public static void main(String[] args) {
+		
+		/*
+		 * if diff hash code, then objects are diff.
+		 * if same hash code, objects may be same, may be diff.
+		 * check for contents to be sure.
+		 * this happens due to hashcode collision.
+		 */
+		
+		/*
+		String s1=new String("hello");
+		String s2=new String("hello");
+		//String has overriden hashcode..based on content
+		System.out.println(s1.equals(s2));
+		System.out.println(s1.hashCode());
+		System.out.println(s2.hashCode());
+		*/
+		
+		//Set<Book> books=new HashSet<>();
+		Set<Book> books=new TreeSet<>((b1,b2)-> {
+			return (int)(b1.getPrice()-b2.getPrice());
+		});
+		
+		//Collections.sort() is only applicable on List, not on Set.
+		
+		Set<Book> unique=new TreeSet<>();
+		Set<Book> dups=new TreeSet<>();
+		
+		if(books.add(new Book(2,"name 2",780))==false) {
+			dups.add(new Book(2,"name 2",780));
+		}else {
+			unique.add(new Book(2,"name 2",780));
+		}
+		if(books.add(new Book(4,"name 5",450))==false) {
+			dups.add(new Book(4,"name 5",450));
+		}else {
+			unique.add(new Book(4,"name 5",450));
+		}
+		if(books.add(new Book(3,"name 3",500))==false) {
+			dups.add(new Book(3,"name 3",500));
+		}else {
+			unique.add(new Book(3,"name 3",500));
+		}
+		if(books.add(new Book(1,"name 1",300))==false) {
+			dups.add(new Book(1,"name 1",300));
+		}else {
+			unique.add(new Book(1,"name 1",300));
+		}
+		if(books.add(new Book(4,"name 5",450))==false) {
+			dups.add(new Book(4,"name 5",450));
+		}else {
+			unique.add(new Book(4,"name 5",450));
+		}
+		
+		for (Book book : dups) {
+			System.out.println(book);
+		}
+	}
+
+}

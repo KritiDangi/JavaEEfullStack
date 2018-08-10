@@ -1,0 +1,31 @@
+package com.visa.prj.service;
+
+import java.util.List;
+
+import javax.transaction.Transactional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.visa.prj.Entity.User;
+import com.visa.prj.dao.UserDao;
+
+@Service
+@Transactional
+public class EventService {
+
+	@Autowired
+	private UserDao userdao;
+	
+	public void insertUser(User u) {
+		userdao.addUser(u);
+	}
+	
+	public List<User> getUsers(){
+		return userdao.getUsers();
+	}
+	
+	public User getUserById(int id) {
+		return userdao.getUserById(id);
+	}
+}

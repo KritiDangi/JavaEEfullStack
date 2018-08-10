@@ -1,0 +1,26 @@
+package com.visa.prj.Client;
+
+import java.util.List;
+
+import com.visa.prj.Dao.DaoException;
+import com.visa.prj.Dao.ProductDao;
+import com.visa.prj.Dao.ProductDaoJpa;
+import com.visa.prj.Entity.Product;
+
+public class InsertClient {
+	
+	public static void main(String[] args) {
+		ProductDao dao=new ProductDaoJpa();
+		Product p=new Product(0,"HP Spectre Laptop",135000.00,200);
+		
+		try {
+			dao.addProduct(p);  //make p managed by entity manager
+			List<Product> products=dao.getProducts();
+			for (Product product : products) {
+				System.out.println(product);
+			}
+		} catch (DaoException e) {
+			e.printStackTrace();
+		}
+	}
+}

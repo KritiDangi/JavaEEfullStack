@@ -1,0 +1,9 @@
+package com.visa.prj.Entity;
+
+public class Registration {
+
+	public Registration() {
+		// TODO Auto-generated constructor stub
+	}
+
+}

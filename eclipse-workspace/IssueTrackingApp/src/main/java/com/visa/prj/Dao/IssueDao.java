@@ -1,0 +1,12 @@
+package com.visa.prj.Dao;
+
+import java.util.List;
+import com.visa.prj.Entity.Issue;
+
+public interface IssueDao {
+	void addIssue(Issue i) throws DaoException;
+	Issue getIssue(int id) throws DaoException;
+	List<Issue> getAllIssues() throws DaoException;
+	List<Issue> getUnresolvedIssues() throws DaoException;
+	boolean updateIssue(Issue i) throws DaoException;
+}

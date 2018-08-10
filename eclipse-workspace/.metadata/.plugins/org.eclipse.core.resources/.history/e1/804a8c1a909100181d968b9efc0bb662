@@ -1,0 +1,146 @@
+package com.visa.prj.web;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import com.visa.prj.Dao.CustomerDao;
+import com.visa.prj.Dao.CustomerDaoJPA;
+import com.visa.prj.Dao.DaoException;
+import com.visa.prj.Dao.ProductDao;
+import com.visa.prj.Dao.ProductDaoJpa;
+import com.visa.prj.Entity.Customer;
+import com.visa.prj.Entity.Product;
+/**
+ * Servlet implementation class FrontController
+ */
+@WebServlet("*.do")
+public class FrontController extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String uri=request.getRequestURI();
+		if(uri != null) {
+		 if(uri.endsWith("addCustomer.do")) {
+					CustomerDao customerdao=new CustomerDaoJPA();
+					Customer v=new Customer();
+					v.setEmail(request.getParameter("cemail"));
+					v.setFirstname(request.getParameter("cfname"));
+					v.setLastname(request.getParameter("clname"));
+					customerdao.addCustomer(v);
+					response.sendRedirect("customerForm.jsp?msg=Customer added successfully!");
+					//client side redirection
+			}
+			/*else if(uri.endsWith("rentalForm.do")) {
+				VehicleDao vehicledao=new VehicleDaoJPA();
+				List<String> regNos=vehicledao.getRegNos();
+				request.setAttribute("regNos", regNos);
+				//server side redirection
+				request.getRequestDispatcher("rentalForm2.jsp").forward(request, response);
+			}
+			else if(uri.endsWith("hireVehicle.do")) {
+				RentalDao rentaldao=new RentalDaoJPA();
+				Rental r=new Rental();
+				r.setRentalAmount(Double.parseDouble(request.getParameter("rentalAmount")));
+				r.setRentalDate(new Date());
+				VehicleDao vehicledao=new VehicleDaoJPA();
+				Vehicle v=vehicledao.getVehicle(request.getParameter("vehicle"));
+				r.setVehicle(v);
+				CustomerDao customerdao=new CustomerDaoJPA();
+				Customer c=customerdao.getCustomer(Integer.parseInt(request.getParameter("customerId")));
+				r.setCustomer(c);
+				rentaldao.addRental(r);
+				response.sendRedirect(page+"?msg=Rental added successfully!");
+			}
+			else if(uri.endsWith("report.do")) {
+				RentalDao rentaldao=new RentalDaoJPA();
+				request.setAttribute("reports", rentaldao.getReport());
+				request.getRequestDispatcher("report.jsp").forward(request, response);
+			}*/
+		 else if(uri.endsWith("login.do")) {
+				//TODO: use customerdao to check if the customer is valid user or not
+				String email=request.getParameter("user");
+				
+				CustomerDao customerdao=new CustomerDaoJPA();
+				Customer c=customerdao.getCustomer(email);
+				if(c==null) {
+					response.sendRedirect("login.jsp?msg=please login");
+				}
+				/*
+				 * true creates a session if session does not exist
+				 * false => fetch existing session if already present, does not create
+				 */
+				HttpSession ses=request.getSession();  //request.getSession(boolean)
+				ses.setAttribute("user", c.getFirstname());
+				response.sendRedirect("index.jsp");
+			}
+			else if(uri.endsWith("logout.do")) {
+				HttpSession ses=request.getSession(false);
+				if(ses!=null) {
+					ses.invalidate();
+					response.sendRedirect("login.jsp");
+				}
+			}
+			else if(uri.endsWith("addProduct.do")) {
+				ProductDao productdao=new ProductDaoJpa();
+				Product p=new Product();
+				p.setVersionNo(0);
+				p.setId(0);
+				p.setName(request.getParameter("pname"));
+				p.setPrice(Double.parseDouble(request.getParameter("pprice")));
+				p.setQuantity(Integer.parseInt(request.getParameter("pquantity")));
+				
+				try {
+					productdao.addProduct(p);
+					response.sendRedirect("index.jsp?msg=Product added successfully!");
+				} catch (DaoException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+			}
+			else if(uri.endsWith("listProducts.do")) {
+				ProductDao productdao=new ProductDaoJpa();
+				try {
+					List<Product> products=productdao.getProducts();
+					request.setAttribute("products", products);
+					request.getRequestDispatcher("listProducts.jsp").forward(request, response);
+				} catch (DaoException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+			}
+			else if(uri.endsWith("cart.do")) {
+				ProductDao productdao=new ProductDaoJpa();
+				try {
+					List<Product> products=productdao.getProducts();
+					List<Product> filtered=new ArrayList<>();
+					
+					request.getRequestDispatcher("cart.jsp").forward(request, response);
+				} catch (DaoException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doGet(request, response);
+	}
+
+}

@@ -1,0 +1,9 @@
+package com.visa.prj.Util;
+
+public class JpaUtil {
+
+	public JpaUtil() {
+		// TODO Auto-generated constructor stub
+	}
+
+}

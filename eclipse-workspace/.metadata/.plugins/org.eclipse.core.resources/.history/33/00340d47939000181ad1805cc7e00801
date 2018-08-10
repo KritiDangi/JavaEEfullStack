@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Simple web application</title>
+</head>
+<body>
+<h1> Simple Web App</h1>
+<a href="register.html">Registration</a>
+<br>
+<a href="first">First servlet</a>
+</body>
+</html>

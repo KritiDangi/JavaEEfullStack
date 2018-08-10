@@ -1,0 +1,26 @@
+<<<<<<< HEAD
+package com.visa.dao;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import com.visa.entity.Voucher;
+
+@Repository
+public interface VoucherDao extends JpaRepository<Voucher, Integer> {
+
+}
+=======
+package com.visa.dao;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import com.visa.entity.Voucher;
+
+@Repository
+public interface VoucherDao extends JpaRepository<Voucher, Integer> {
+	int findByVoucherCode(String voucherCode);
+
+}
+>>>>>>> branch 'aradhya' of https://github.com/Aashutosh101/RestaurantManagementApp

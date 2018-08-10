@@ -1,0 +1,23 @@
+package com.visa.web;
+
+public class TimeOutOfBounds extends Exception {
+	private String input;
+
+	public TimeOutOfBounds(String input) {
+		super();
+		this.input = input;
+	}
+
+	public TimeOutOfBounds() {
+		super();
+	}
+
+	public String getInput() {
+		return input;
+	}
+
+	public void setInput(String input) {
+		this.input = input;
+	}
+	
+}

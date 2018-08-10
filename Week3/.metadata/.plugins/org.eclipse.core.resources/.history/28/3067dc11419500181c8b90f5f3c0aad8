@@ -1,0 +1,9 @@
+package com.visa.prj.web;
+
+public class EventController {
+
+	public EventController() {
+		// TODO Auto-generated constructor stub
+	}
+
+}

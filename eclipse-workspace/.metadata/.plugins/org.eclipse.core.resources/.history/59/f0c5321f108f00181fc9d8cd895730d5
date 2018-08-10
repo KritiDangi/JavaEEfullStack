@@ -1,0 +1,33 @@
+package com.visa.prj.Entity;
+
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@DiscriminatorValue(value="mobile")
+public class Mobile extends Item {
+
+	private String connectivity;
+	
+	public Mobile() {
+		// TODO Auto-generated constructor stub
+	}
+
+
+	public Mobile(String connectivity) {
+		super();
+		this.connectivity = connectivity;
+	}
+
+
+	public String getConnectivity() {
+		return connectivity;
+	}
+
+	public void setConnectivity(String connectivity) {
+		this.connectivity = connectivity;
+	}
+
+	
+}

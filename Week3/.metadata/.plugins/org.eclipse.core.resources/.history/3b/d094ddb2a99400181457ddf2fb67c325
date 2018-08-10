@@ -1,0 +1,9 @@
+package com.visa.prj.dao;
+
+public class UserDao {
+
+	public UserDao() {
+		// TODO Auto-generated constructor stub
+	}
+
+}

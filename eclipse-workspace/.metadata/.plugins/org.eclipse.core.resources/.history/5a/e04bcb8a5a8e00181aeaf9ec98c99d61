@@ -1,0 +1,9 @@
+package com.visa.prj.Entity;
+
+public class LineItem {
+
+	public LineItem() {
+		// TODO Auto-generated constructor stub
+	}
+
+}

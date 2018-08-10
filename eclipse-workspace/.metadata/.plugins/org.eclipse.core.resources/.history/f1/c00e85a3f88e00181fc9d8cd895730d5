@@ -1,0 +1,79 @@
+package com.visa.prj.Client;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="movies")
+public class Movie2 {
+
+	@Id  //denotes primary key   - composite primary key -> @CompositeId
+	@GeneratedValue(strategy=GenerationType.IDENTITY)  //auto generated, auto increment, only for int or long 
+	private int Mid;
+	
+	@Column(name="name",length=100,nullable=false)
+	private String name;
+	
+	@ManyToMany
+	/*
+	 * if i want to go from movies to actor, ie given a movie, get the actors
+	 * then then join column is direct link(movie to link table)
+	 * and inverse join column is the other link(link table to actor)
+	 */
+	@JoinTable(name="MOVIE_ACTOR", inverseJoinColumns = {
+			@JoinColumn(name="Aid")  
+	}, joinColumns = {
+			@JoinColumn(name="Mid")
+	})
+	private List<Actor2>actors=new ArrayList<>();	
+	
+	public Movie2() {
+	}
+
+	public Movie2(int id, String name, List<Actor2> actors) {
+		super();
+		this.Mid = id;
+		this.name = name;
+		this.actors = actors;
+	}
+
+	public int getId() {
+		return Mid;
+	}
+
+	public void setId(int id) {
+		this.Mid = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public List<Actor2> getActors() {
+		return actors;
+	}
+
+	public void setActors(List<Actor2> actors) {
+		this.actors = actors;
+	}
+
+	@Override
+	public String toString() {
+		return "Movie2 [id=" + Mid + ", name=" + name + ", actors=" + actors + "]";
+	}
+
+}

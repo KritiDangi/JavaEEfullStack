@@ -1,0 +1,18 @@
+package packageClient;
+
+import java.util.HashMap;
+import java.util.Map;
+
+public class MapExample {
+
+	public static void main(String[] args) {
+		Map<String, Integer> sales = new HashMap<>();
+		sales.put("Java", 100);
+		sales.put("Oracle", 138);
+		sales.put("Javascript", 300);
+
+		if(sales.containsKey("Java"))
+			System.out.println("Sales of java books: "+sales.get("Java"));
+	}
+
+}

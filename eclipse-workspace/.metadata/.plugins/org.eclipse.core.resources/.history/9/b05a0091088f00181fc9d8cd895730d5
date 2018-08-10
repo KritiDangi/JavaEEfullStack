@@ -1,0 +1,9 @@
+package com.visa.prj.Client;
+
+public class ProductClient {
+
+	public ProductClient() {
+		// TODO Auto-generated constructor stub
+	}
+
+}

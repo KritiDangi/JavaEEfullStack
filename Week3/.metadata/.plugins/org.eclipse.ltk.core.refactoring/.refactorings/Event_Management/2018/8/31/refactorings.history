@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename field &apos;Name&apos; in &apos;com.visa.prj.Entity.Event&apos; to &apos;name&apos;&#x0D;&#x0A;- Original project: &apos;Event_Management&apos;&#x0D;&#x0A;- Original element: &apos;com.visa.prj.Entity.Event.Name&apos;&#x0D;&#x0A;- Renamed element: &apos;com.visa.prj.Entity.Event.name&apos;&#x0D;&#x0A;- Update references to refactored element&#x0D;&#x0A;- Update textual occurrences in comments and strings" delegate="false" deprecate="false" description="Rename field &apos;Name&apos;" flags="589826" getter="false" id="org.eclipse.jdt.ui.rename.field" input="/src\/main\/java&lt;com.visa.prj.Entity{Event.java[Event^Name" name="name" references="true" setter="false" stamp="1533097152066" textual="false" version="1.0"/>
+</session>

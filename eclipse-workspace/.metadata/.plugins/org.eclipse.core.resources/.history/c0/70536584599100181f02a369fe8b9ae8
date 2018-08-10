@@ -1,0 +1,25 @@
+package com.visa.prj.dao;
+
+import java.util.List;
+
+import javax.persistence.EntityManager;
+
+import com.visa.prj.dto.RentalReportDTO;
+import com.visa.prj.entity.Rental;
+
+public class RentalDaoJPA implements RentalDao {
+
+	@Override
+	public void addRental(Rental r) {
+		EntityManager em=JPAUtil.getEntityManager();
+		em.getTransaction().begin();
+		em.persist(r);
+		em.getTransaction().commit();		
+	}
+
+	@Override
+	public List<RentalReportDTO> getReport() {
+		return null;
+	}
+
+}

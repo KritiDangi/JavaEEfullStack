@@ -1,0 +1,31 @@
+package com.visa.prj.Entity;
+
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="events")
+public class Event {
+
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private int id;
+	
+	@Column(name="name")
+	private String Name;
+	
+	@Column(name="event_date")
+	private Date eventDate;
+	
+	private String location;
+	
+	public Event() {
+	}
+
+}

@@ -1,0 +1,46 @@
+package com.visa.prj.web;
+
+import javax.xml.validation.TypeInfoProvider;
+import javax.xml.validation.ValidatorHandler;
+
+import org.springframework.stereotype.Component;
+import org.springframework.validation.Errors;
+import org.springframework.validation.ValidationUtils;
+import org.springframework.validation.Validator;
+import org.w3c.dom.ls.LSResourceResolver;
+import org.xml.sax.Attributes;
+import org.xml.sax.ContentHandler;
+import org.xml.sax.ErrorHandler;
+import org.xml.sax.Locator;
+import org.xml.sax.SAXException;
+
+import com.visa.prj.Entity.User;
+
+@Component
+public class UserValidator implements Validator {
+
+	@Override
+	public boolean supports(Class<?> arg0) {
+		// TODO Auto-generated method stub
+		return arg0.isAssignableFrom(User.class);
+	}
+
+	@Override
+	public void validate(Object obj, Errors errors) {
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "firstName", "user.firstName.required","First name is required!");
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "lastName", "user.lastName.required","Last name is required!");
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "phone", "user.phone.required","Phone is required!");
+		User u = (User) obj;	
+		
+		try {
+			int ph=Integer.parseInt(u.getPhone());
+			if(ph<0) {
+				errors.rejectValue("phone", "invalid.phone", "phone should be > 0! ");
+			}
+			
+		}catch(NumberFormatException e) {
+			errors.rejectValue("phone", "invalid.phone", "phone should be only digits! ");
+		}
+	}
+
+}

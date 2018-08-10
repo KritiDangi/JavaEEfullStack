@@ -1,0 +1,21 @@
+package com.visa.prj.Client;
+
+import javax.persistence.EntityManager;
+
+import com.visa.prj.Entity.Mobile;
+import com.visa.prj.Entity.Tv;
+import com.visa.prj.Util.JPAUtil;
+
+public class InheritanceClient {
+
+	public static void main(String[] args) {
+		EntityManager em=JPAUtil.getEntityManager();
+		em.getTransaction().begin();
+		Mobile m =new Mobile(0,"OnePlus 5T",45000.00,"4G");
+		Tv tv=new Tv(0,"Sony Bravia",120000.00,"OLED");
+		em.persist(m);
+		em.persist(tv);
+		em.getTransaction().commit();
+	}
+
+}

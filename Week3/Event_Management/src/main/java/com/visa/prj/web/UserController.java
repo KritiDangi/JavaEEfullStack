@@ -1,0 +1,42 @@
+package com.visa.prj.web;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.visa.prj.Entity.User;
+import com.visa.prj.service.EventService;
+
+@Controller
+public class UserController {
+
+	@Autowired
+	private UserValidator validator;
+	
+	@Autowired
+	private EventService eventservice;
+	
+	@RequestMapping("userForm.do")
+	public String getUserForm(Model model) {
+		model.addAttribute("user",new User());  //create a model, empty book
+		return "userForm.jsp";   //return the view..server side redirection
+	}
+	
+	@RequestMapping("addUser.do")
+	public String addUser(@ModelAttribute("user") User u, BindingResult errors) {
+		
+		validator.validate(u, errors);
+		if(errors.hasErrors()) {
+			return "userForm.jsp";   //server side redirection
+			//dont use client side redirection, error messages will be lost
+		}else {
+			eventservice.insertUser(u);
+			return "redirect:index.jsp?msg=user added successfully! ";   //return the view..server side redirection
+			//return "redirect:index.jsp";   //return the view..client side redirection
+			//But the data inside the response(form data) will be gone.
+		}
+	}
+}

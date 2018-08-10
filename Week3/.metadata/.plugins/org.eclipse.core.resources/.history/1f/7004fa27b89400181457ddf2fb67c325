@@ -1,0 +1,58 @@
+package com.visa.prj.config;
+
+import java.util.Properties;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.orm.jpa.JpaTransactionManager;
+import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
+import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+
+@Configuration
+@EnableTransactionManagement   //declarative transaction (if not declared, all @transactional will fail
+@ComponentScan("com.visa")
+public class AppConfig {
+
+	
+	/*replacement of persistence.xml
+	 * Since we are not using jpa directly, we are using it through spring,
+	 * we create a dataSource and hand it over to Spring to manage
+	 */
+	@Bean
+	public DriverManagerDataSource dataSource() {
+		//DriverManagerDataSource is a pool of open connections
+		DriverManagerDataSource ds=new DriverManagerDataSource();
+		ds.setDriverClassName("com.mysql.jdbc.Driver");
+		ds.setUrl("jdbc:mysql://localhost:3306/event_mgmt_db?createDatabaseIfNotExist=true");
+		ds.setUsername("root");
+		ds.setPassword("mysqlroot");
+		return ds;
+	}
+	
+	
+	/*
+	 * replacement of JpaUtil
+	 * Entity manager factory is created here
+	 */
+	@Bean
+	public LocalContainerEntityManagerFactoryBean entityManager(DriverManagerDataSource ds) {
+		LocalContainerEntityManagerFactoryBean emf=new LocalContainerEntityManagerFactoryBean();
+		emf.setDataSource(ds);
+		emf.setPackagesToScan("com.visa.prj.entity");
+		emf.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
+		Properties props=new Properties();
+		props.put("hibernate.dialect", "org.hibernate.dialect.MySQL5Dialect");
+		props.put("hibernate.hbm2ddl.auto", "update");
+		emf.setJpaProperties(props);
+		return emf;
+	}
+	
+	@Bean
+	public PlatformTransactionManager transactionManager() {
+		return new JpaTransactionManager();
+	}
+}

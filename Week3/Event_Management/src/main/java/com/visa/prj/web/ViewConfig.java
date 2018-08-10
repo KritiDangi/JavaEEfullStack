@@ -1,0 +1,22 @@
+package com.visa.prj.web;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.support.ResourceBundleMessageSource;
+
+@Configuration
+public class ViewConfig {
+	
+	@Bean
+	public ResourceBundleMessageSource messageSource() {
+		/*
+		 * ResourceBundleMessageSource is used to read from a property file
+		 * property file is a key value pair
+		 * here the property file is specified as messages
+		 * messages contains error messages
+		 */
+		ResourceBundleMessageSource bundle=new ResourceBundleMessageSource();
+		bundle.setBasename("messages");
+		return bundle;
+	}
+}

@@ -1,0 +1,54 @@
+package com.visa.prj.Dao;
+
+import java.util.List;
+
+import javax.persistence.EntityManager;
+
+import com.visa.prj.Entity.Product;
+import com.visa.prj.Util.JPAUtil;
+
+public class ProductDaoJpa implements ProductDao {
+
+	public ProductDaoJpa() {
+		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	public List<Product> getProducts() throws DaoException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void addProduct(Product p) throws DaoException {
+		EntityManager em=JPAUtil.getEntityManager();
+		em.getTransaction().begin();
+		em.persist(p);
+		
+	}
+
+	@Override
+	public Product getProduct(int id) throws DaoException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void deleteProduct(int id) throws DaoException {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void updateProduct(Product p) throws DaoException {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public List<Product> getProductsByPrice(double price) throws DaoException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

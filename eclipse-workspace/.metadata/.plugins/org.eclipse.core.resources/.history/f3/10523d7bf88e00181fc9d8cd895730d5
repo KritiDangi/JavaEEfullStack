@@ -1,0 +1,9 @@
+package com.visa.prj.Client;
+
+public class Actor2 {
+
+	public Actor2() {
+		// TODO Auto-generated constructor stub
+	}
+
+}

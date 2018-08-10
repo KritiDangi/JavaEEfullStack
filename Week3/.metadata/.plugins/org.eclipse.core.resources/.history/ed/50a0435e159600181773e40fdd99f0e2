@@ -1,0 +1,9 @@
+package com.visa.dao;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.visa.entity.Customer;
+
+public interface CustomerDao extends JpaRepository<Customer, Integer>{
+
+}

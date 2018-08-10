@@ -1,0 +1,9 @@
+package com.visa.prj.Entity;
+
+public class Issue {
+
+	public Issue() {
+		// TODO Auto-generated constructor stub
+	}
+
+}

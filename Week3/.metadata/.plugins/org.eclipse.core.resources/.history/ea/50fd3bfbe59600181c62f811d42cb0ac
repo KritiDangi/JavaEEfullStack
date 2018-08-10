@@ -1,0 +1,6 @@
+{{#.}}
+Order date: {{orderDate}} <br>
+order total: {{total}}
+Customer: {{customer.email}} <br>
+{{customer.firstName}} <br>
+{{/.}}

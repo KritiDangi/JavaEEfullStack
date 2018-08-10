@@ -1,0 +1,24 @@
+package com.visa.prj.Client;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="movies")
+public class Movie2 {
+
+	@Id  //denotes primary key   - composite primary key -> @CompositeId
+	@GeneratedValue(strategy=GenerationType.IDENTITY)  //auto generated, auto increment, only for int or long 
+	private int id;
+	
+	@Column(name="name",length=100,nullable=false)
+	private String name;
+	
+	public Movie2() {
+	}
+
+}

@@ -1,0 +1,9 @@
+package com.visa.prj.Client;
+
+public class InsertClient {
+
+	public InsertClient() {
+		// TODO Auto-generated constructor stub
+	}
+
+}

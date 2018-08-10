@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Customer Registration Form</title>
+</head>
+<body>
+<h1>Customer Registration Form</h1>
+<form action="addCustomer.do" method="post">
+	full name.: <input type="text" name="full_name" required><br>
+	email: <input type="text" name="email" /> <br />
+		<button type="submit">Add Vehicle</button>
+</form>
+</html>
